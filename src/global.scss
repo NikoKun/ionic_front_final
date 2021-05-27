@@ -1,0 +1,186 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+:root {
+  --widthLeftPanel: 300px;
+}
+
+
+
+
+.my-custom-menu {
+    --width: 500px;
+}
+
+.text {
+  color: black;
+}
+
+.my-custom-menu {
+  --width: 300px;
+}
+
+ion-avatar {
+  width: 10%;
+  height: 10%;
+  min-width: 50px;
+  max-width: 70px;
+}
+
+.bigger-ion-avatar {
+  width: 20%;
+  height: 20%;
+  min-width: 100px;
+  max-width: 140px;
+}
+
+ion-text {
+  overflow: visible;
+  text-overflow: unset;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  word-break: break-all;
+  background-color: transparent;
+}
+
+.item-inner {
+  border-bottom: 0px !important;
+}
+
+ion-toolbar {
+  --ion-background-color: var(--ion-color-primary-tint);
+}
+
+.navItem {
+  border-top: 1px solid var(--border-color);
+}
+
+.allBorders {
+  border: 1px solid var(--border-color);
+  border-bottom: 0px;
+  border-radius: 3px;
+}
+
+.navItemBot {
+  border-bottom: 1px solid var(--border-color);
+}
+
+
+ion-split-pane {
+  --side-width: var(--widthLeftPanel);
+  --side-max-width: 300px;
+}
+
+
+
+
+ion-router-outlet {
+  width: calc(100vw - 300px) !important;
+  max-width: 100vw !important;
+}
+
+
+
+input-wrapper {
+  padding: 0px;
+}
+
+.backGray ion-item {
+  --ion-background-color: var(--ion-color-light) !important;
+}
+
+
+.menuButton {
+  --background: transparent;
+  --box-shadow: none;
+  color: black;
+  margin: 0px;
+  width: 100%;
+
+  border-bottom: 2px solid var(--border-color) !important;
+}
+
+.menuButtonSelected {
+  --background: transparent;
+  --box-shadow: none;
+  color: black;
+  margin: 0px;
+  width: 100%;
+
+  border-bottom: 2px solid var(--ion-color-primary-tint) !important;
+}
+ion-list {
+  padding: 0px !important;
+}
+
+
+.hideWhenBig {
+  display: none;
+}
+
+.hideWhenSmall {
+  display: block;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+
+  .hideWhenBig {
+    display: contents;
+  }
+  
+  .hideWhenSmall {
+    display: none;
+  }
+  
+
+}
+
+
+
+
+
+@media screen and (max-width: 800px) {
+
+
+  ion-router-outlet {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+
+}
+
+
+
+
+
+
+

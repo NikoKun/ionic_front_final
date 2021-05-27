@@ -1,0 +1,83 @@
+
+
+<ion-content>
+
+
+  <div style="padding-top: 60px; width: 100%; height: 100%; display: flex; justify-content: center; align-content: center; align-items: center;">
+    <ion-card style="max-width: 600px; padding: 20px; margin: auto; width: 100%;">
+      <ion-title style="color: black; font-size: 25px; margin-bottom: 10px"> Sign In</ion-title>
+
+      <form [formGroup]="todo" (ngSubmit)="register()">
+
+        <ion-card color='danger' *ngIf="showError == true">
+          <ion-card-content>
+            {{ errorMSG }}
+          </ion-card-content>
+        </ion-card>
+
+        
+
+        <br><br>
+        <div style="width: 100%; display: flex; justify-content: center; flex-wrap: wrap;">
+          <ion-avatar class="ion-margin-start" style="width: 30% !important; height: 30% !important; max-width: 30%; max-height: 30%;"> 
+            <img [src]="profilePic">
+          </ion-avatar>
+
+          <ion-button>
+            <input type="file" (change)="loadProfPic($event)" id="file-input" accept="image/png, image/jpeg">
+            <ion-icon for="file-input" lazy="true" slot="start" name="image"></ion-icon>
+          </ion-button>
+        </div>
+        <br><br>
+
+
+        <ion-item>
+          <ion-label position="floating">Username*</ion-label>
+          <ion-input type="text" formControlName="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email*</ion-label>
+          <ion-input type="email" formControlName="email" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Password*</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+      
+
+
+        <div style="width: 100%; display: flex;">
+          <ion-item style="width: 100%; margin-right: 5px;">
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input type="text" formControlName="firstname"></ion-input>
+          </ion-item>
+
+          <ion-item style="width: 100%; margin-left: 5px;">
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input type="text" formControlName="lastname"></ion-input>
+          </ion-item>
+        </div>
+
+
+        <div class="backGray" style="margin-top: 10px;">
+          <ion-item class="allBorders">
+            <ion-label position="stacked">{{ 250 - msgText.length }} characters left</ion-label>
+            <ion-textarea maxlength="250" formControlName="description" spellcheck="true" [(ngModel)]="msgText" placeholder="Description..."></ion-textarea>
+          </ion-item>
+        </div>
+
+      
+        <div style="width: 100%; display: flex; justify-content: space-between; margin-top: 10px">
+          <ion-button href="/login" color="medium" style="font-size: 12px;">I have an account</ion-button>
+          <ion-button [disabled]="!todo.valid" color="primary" type="submit" style="font-size: 12px;">Create account</ion-button>
+        </div>
+
+
+      </form>
+    </ion-card>
+  </div>
+
+
+</ion-content>

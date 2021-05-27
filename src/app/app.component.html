@@ -1,0 +1,187 @@
+<ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>
+
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      
+      <ion-menu-button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </ion-menu-button>
+
+    </ion-buttons>
+    <ion-title style="color: white"> Safe Share </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+
+<ion-split-pane contentId="main" when="(min-width: 800px)">
+
+  <ion-menu name="menu" side="start" menuId="first" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Start Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-item button="true" href="/profile" lines="none">
+        <ion-avatar slot="start">
+          <img src="{{ imagesURL }}img1.jpg">
+        </ion-avatar>
+
+        <ion-grid lines="none">
+          <ion-row>
+            <ion-col>
+              <ion-label style="font-size: 21px;">NikoKun</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label style="font-size: 15px; margin-top: -8px; color: darkgray;">@nikorasu</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label style="font-size: 13px;">23 Following</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label style="font-size: 13px;">16 Followers</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-list>
+        <ion-item button="true" lines="none" class="navItem" href="/home"> 
+          <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+          </svg>
+          Home
+        </ion-item>
+        <ion-item button="true" lines="none" class="" href="/notifications"> 
+          <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+          </svg>
+          Notifications
+        </ion-item>
+        <ion-item button="true" lines="none" class="navItemBot hideWhenBig" href="/messages"> 
+          <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-dots-fill" viewBox="0 0 16 16">
+            <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353V2zM5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+          </svg>
+          Messages
+        </ion-item>
+
+
+        <ion-button style="margin: 5px; width: 288px;">
+          <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+            <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+          </svg>
+          Share Something
+        </ion-button>
+
+       
+      </ion-list>
+
+      <ion-item button="true" lines="none" class="navItem" style="position: fixed; bottom: 0px; width: 100%" href="/login?exit=true"> 
+        <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+          <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+        </svg>
+        Log Out
+      </ion-item>
+
+    </ion-content>
+  </ion-menu>
+
+
+
+
+
+
+  <ion-router-outlet id="main">  </ion-router-outlet>
+
+
+
+
+
+
+  <ion-menu name="menu" side="end" menuId="last" contentId="main" style="margin-top: 47px" class="hideWhenSmall">
+    <ion-content>
+      <ion-item lines="none" style="margin-top: 10px;" class="navItemBot">
+        Messages...
+      </ion-item>
+
+      <ion-item button="true" lines="none" class="navItemBot">
+        <ion-avatar slot="start">
+          <img src="{{ imagesURL }}img1.jpg">
+        </ion-avatar>
+
+        <ion-grid lines="none">
+          <ion-row>
+            <ion-col>
+              <ion-label style="font-size: 21px;">NikoKun</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label style="font-size: 15px; margin-top: -8px; color: darkgray;">@nikorasu</ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label style="font-size: 13px;">3 new messages</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+
+
+
+
+    </ion-content>
+  </ion-menu>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ion-split-pane>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
