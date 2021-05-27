@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
   public showError: boolean = false;
   public errorMSG: string;
 
-  constructor(public http: HttpClient, public formBuilder: FormBuilder, private router: Router ) { 
+  constructor(public http: HttpClient, public formBuilder: FormBuilder, private router: Router) { 
 
 
   }

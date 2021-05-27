@@ -29,17 +29,12 @@ export class HomePage implements OnInit {
   constructor( private http: HttpClient, private router: Router ) { 
     
     this.textTest = "Test 2";
+    this.checkIsLogged();
 
   }
 
   ngOnInit() {
-    if (localStorage.getItem('image') == '' || localStorage.getItem('image') == undefined) {
-      this.router.navigate(['/login']);
-    }
 
-    this.checkIsLogged();
-
-    localStorage.setItem("showMenus", "true");
 
 
     this.http.get(this.requestsURL+'test/').subscribe(data => {
@@ -58,15 +53,18 @@ export class HomePage implements OnInit {
     headers.append("Accept", 'application/json');
     headers.append('Content-Type', 'application/json' );
     const requestOptions =  { headers: {'Content-Type':'application/json'} };
-    this.http.post(this.requestsURL+'checkuser/', localStorage.getItem('userToken'), requestOptions).subscribe(data => {
+    this.http.post(this.requestsURL+'checkuser/', ''+localStorage.getItem('userToken'), requestOptions).subscribe(data => {
       if (data == 1) {
+        document.getElementsByName('menu').forEach(element => {
+          element.hidden = false;
+        }); 
         this.isLogged = true;
       } else {
         document.getElementsByName('menu').forEach(element => {
           element.hidden = true;
         }); 
-        this.router.navigate(['/login']);
         this.isLogged = false;
+        this.router.navigate(['/login']);
       }
     }, error => {
       console.log(error);
