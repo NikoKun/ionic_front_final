@@ -15,10 +15,6 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'messages',
-    loadChildren: () => import('./messages/messages.module').then( m => m.MessagesPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
@@ -47,8 +43,20 @@ const routes: Routes = [
     loadChildren: () => import('./editprofile/editprofile.module').then( m => m.EditprofilePageModule)
   },
   {
-    path: 'search',
+    path: 'postsearch',
     loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+  },
+  {
+    path: 'usersearch',
+    loadChildren: () => import('./usersearch/usersearch.module').then( m => m.UsersearchPageModule)
+  },
+  {
+    path: 'likedposts',
+    loadChildren: () => import('./likedposts/likedposts.module').then( m => m.LikedpostsPageModule)
+  },
+  {
+    path: 'responsestoyou',
+    loadChildren: () => import('./responsestoyou/responsestoyou.module').then( m => m.ResponsestoyouPageModule)
   },
 ];
 @NgModule({

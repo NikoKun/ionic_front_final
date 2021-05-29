@@ -61,12 +61,19 @@ ion-avatar {
 
 ion-text {
   overflow: visible;
-  text-overflow: unset;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
   white-space: normal;
-  word-break: break-all;
   background-color: transparent;
+
+
+/*   text-overflow: unset;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+ */
+
+
+  overflow-wrap: break-word;
+  hyphens: manual;
 }
 
 .item-inner {

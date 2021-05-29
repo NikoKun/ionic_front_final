@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SearchPageRoutingModule } from './search-routing.module';
+import { UsersearchPageRoutingModule } from './usersearch-routing.module';
 
-import { SearchPage } from './search.page';
+import { UsersearchPage } from './usersearch.page';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -14,10 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     IonicModule,
-    SearchPageRoutingModule,
+    UsersearchPageRoutingModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
-  declarations: [SearchPage]
+  declarations: [UsersearchPage]
 })
-export class SearchPageModule {}
+export class UsersearchPageModule {}

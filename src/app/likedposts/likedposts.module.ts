@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MessagesPageRoutingModule } from './messages-routing.module';
+import { LikedpostsPageRoutingModule } from './likedposts-routing.module';
 
-import { MessagesPage } from './messages.page';
+import { LikedpostsPage } from './likedposts.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MessagesPageRoutingModule
+    LikedpostsPageRoutingModule
   ],
-  declarations: [MessagesPage]
+  declarations: [LikedpostsPage]
 })
-export class MessagesPageModule {}
+export class LikedpostsPageModule {}

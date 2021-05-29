@@ -1,25 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
-
-
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+
 
 
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.page.html',
-  styleUrls: ['./explore.page.scss'],
+  selector: 'app-responsestoyou',
+  templateUrl: './responsestoyou.page.html',
+  styleUrls: ['./responsestoyou.page.scss'],
 })
-
-export class ExplorePage implements OnInit {
+export class ResponsestoyouPage implements OnInit {
 
   public imagesURL = environment.imagesURL;
   public requestsURL = environment.requestsURL;
-  public iduser = localStorage.getItem('userid');
-
-  public todo : FormGroup;
+  public idUser = localStorage.getItem('userid');
 
   public arrayTest: any;
   public msgText: string = "";
@@ -29,7 +24,7 @@ export class ExplorePage implements OnInit {
   public dataToSend: any;
 
 
-  constructor( private http: HttpClient, public formBuilder: FormBuilder ) { 
+  constructor( private http: HttpClient ) { 
     
 
   }
@@ -37,29 +32,28 @@ export class ExplorePage implements OnInit {
 
 
 
-
   ngOnInit() {
     localStorage.setItem('idVisiting', '');
 
-    this.todo = this.formBuilder.group({
-      body: ['', Validators.required],
-    });
+
 
     this.checkIsLogged();
 
-    this.getExplorePosts();
+    this.getResponseToYou();
 
 
   }
 
 
 
-  getExplorePosts() {
+  getResponseToYou() {
     var headers = new Headers();
     headers.append("Accept", 'application/json');
     headers.append('Content-Type', 'application/json' );
     const requestOptions =  { headers: {'Content-Type':'application/json'} };
-    this.http.post(this.requestsURL+'getExplorePosts/', ''+localStorage.getItem('userToken'), requestOptions).subscribe(data => {
+    
+    this.dataToSend = { 'iduser': this.idUser, 'token': localStorage.getItem('userToken') }
+    this.http.post(this.requestsURL+'getResponseToYou/', this.dataToSend, requestOptions).subscribe(data => {
       this.arrayTest = data;
     }, error => {
       console.log(error);
@@ -67,28 +61,7 @@ export class ExplorePage implements OnInit {
   }
 
 
-  post(){
-    if (localStorage.getItem('imagePost') != '') {
-      this.todo.value.image = localStorage.getItem('imagePost');
-    }
 
-    this.todo.value.token = localStorage.getItem('userToken')
-
-    var headers = new Headers();
-    headers.append("Accept", 'application/json');
-    headers.append('Content-Type', 'application/json' );
-    const requestOptions =  { headers: {'Content-Type':'application/json'} };
-
-    this.http.post(this.requestsURL+'post/', this.todo.value, requestOptions).subscribe(data => {
-      if (data == 1) {
-        localStorage.setItem('imagePost', '');
-        this.msgText = "";
-        this.getExplorePosts();
-      }
-    }, error => {
-      console.log(error);
-    });
-  }
 
 
   loadProfPic($event) {
@@ -180,13 +153,11 @@ export class ExplorePage implements OnInit {
     headers.append('Content-Type', 'application/json' );
     const requestOptions =  { headers: {'Content-Type':'application/json'} };
     this.http.post(this.requestsURL+'removepost/', this.dataToSend, requestOptions).subscribe(data => {
-      this.getExplorePosts();
+      this.getResponseToYou();
     }, error => {
       console.log(error);
     });
   }
-
-
 
 
 

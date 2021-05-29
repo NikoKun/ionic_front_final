@@ -20,24 +20,32 @@ export class ProfilePage implements OnInit {
   public arrayTest: any;
   public dataToSend: any;
 
-  constructor( private http: HttpClient, ) { }
+  public option: any = 1;
 
-  ngOnInit() {
+  constructor( private http: HttpClient, ) { 
 
-    this.loadposts();
-
+    
   }
 
 
 
-  loadposts() {
-    var headers = new Headers();
-    headers.append("Accept", 'application/json');
-    headers.append('Content-Type', 'application/json' );
-    const requestOptions =  { headers: {'Content-Type':'application/json'} };
+
+  ngOnInit() {
+
+
+    this.loaduser()
+  
+  }
+
+
+
+  loaduser() {
 
     if (this.idUser != 'no' && this.idUser != undefined) {
- 
+      var headers = new Headers();
+      headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json' );
+      const requestOptions =  { headers: {'Content-Type':'application/json'} };
       this.dataToSend = { 'iduser': this.idUser, 'token': localStorage.getItem('userToken') }
       this.http.post(this.requestsURL+'getuserbyid/', this.dataToSend, requestOptions).subscribe(data => {
         if (data != 'no') {
@@ -47,19 +55,96 @@ export class ProfilePage implements OnInit {
             data['img'] = this.imagesURL + data['img'];
           }
           this.visitrdUserData = data;
-
+          setTimeout(() => {
+            this.loadposts(this.option);
+          }, 1500);
         } else {
   
         }
       }, error => {
         console.log(error);
       });
+    }
 
-      this.http.post(this.requestsURL+'getUsersPosts/', ''+this.idUser, requestOptions).subscribe(data => {
-        this.arrayTest = data;
-      }, error => {
-        console.log(error);
-      });
+    
+
+  }
+
+  loadposts(optionselected) {
+    var progressbar = document.getElementById('postprogresbar');
+    progressbar.style.visibility = "visible"; 
+
+    this.option = optionselected;
+
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append('Content-Type', 'application/json' );
+    const requestOptions =  { headers: {'Content-Type':'application/json'} };
+
+    if (this.idUser != 'no' && this.idUser != undefined) {
+
+      this.dataToSend = { 'iduser': this.idUser, 'token': localStorage.getItem('userToken') }
+
+
+      var option1 = document.getElementById('option1');
+      var option2 = document.getElementById('option2');
+      var option3 = document.getElementById('option3');
+
+      if (this.option == 1) {
+
+        option1.classList.remove("menuButton");
+        option1.classList.add("menuButtonSelected");
+
+        option2.classList.remove("menuButtonSelected");
+        option2.classList.add("menuButton");
+
+        option3.classList.remove("menuButtonSelected");
+        option3.classList.add("menuButton");
+
+        this.http.post(this.requestsURL+'getUsersPosts/', ''+this.idUser, requestOptions).subscribe(data => {
+          this.arrayTest = data;
+          progressbar.style.visibility = "hidden"; 
+        }, error => {
+          console.log(error);
+        });
+      } else if (this.option == 2) {
+
+        option1.classList.remove("menuButtonSelected");
+        option1.classList.add("menuButton");
+
+        option2.classList.remove("menuButton");
+        option2.classList.add("menuButtonSelected");
+
+        option3.classList.remove("menuButtonSelected");
+        option3.classList.add("menuButton");
+
+        this.http.post(this.requestsURL+'getResponseToYou/', this.dataToSend, requestOptions).subscribe(data => {
+          this.arrayTest = data;
+          progressbar.style.visibility = "hidden"; 
+        }, error => {
+          console.log(error);
+        });
+      } else if (this.option == 3) {
+
+        option1.classList.remove("menuButtonSelected");
+        option1.classList.add("menuButton");
+
+        option2.classList.remove("menuButtonSelected");
+        option2.classList.add("menuButton");
+
+        option3.classList.remove("menuButton");
+        option3.classList.add("menuButtonSelected");
+
+        this.http.post(this.requestsURL+'getLikedPosts/', this.dataToSend, requestOptions).subscribe(data => {
+          this.arrayTest = data;
+          progressbar.style.visibility = "hidden"; 
+        }, error => {
+          console.log(error);
+        });
+      }
+
+      
+
     }
   }
 
@@ -181,7 +266,7 @@ export class ProfilePage implements OnInit {
     headers.append('Content-Type', 'application/json' );
     const requestOptions =  { headers: {'Content-Type':'application/json'} };
     this.http.post(this.requestsURL+'removepost/', this.dataToSend, requestOptions).subscribe(data => {
-      this.loadposts();
+      this.loadposts(this.option);
     }, error => {
       console.log(error);
     });

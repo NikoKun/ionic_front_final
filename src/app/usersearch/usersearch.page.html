@@ -1,9 +1,29 @@
 
-<ion-content *ngIf="followUsers">
 
-  <h1 style=" margin: 10px; margin-top: 80px;">{{ mainname }} is Following...</h1>
 
-  <ion-card *ngFor="let user of followUsers" style="margin-top: 20px">
+
+<ion-content>
+
+
+  <h1 style=" margin: 10px; margin-top: 80px;">User Search</h1>
+
+
+  <form [formGroup]="todo" (ngSubmit)="post()">
+    <div class="backGray" style="padding: 10px;">
+      <ion-item class="allBorders">
+        <ion-label position="floating">
+          <svg style="margin-right: 6px" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+          Search something...
+        </ion-label>
+        <ion-input type="text" formControlName="searchabar"></ion-input>
+      </ion-item>
+      <ion-progress-bar type="indeterminate" id="postprogresbar"></ion-progress-bar>
+    </div>
+  </form>
+  
+  <ion-card *ngFor="let user of arrayTest" style="margin-top: 20px">
     <ion-item lines="none" style="margin-top: 5px;">
       <ion-avatar (click)="redirectUser(user.id)" slot="start" class="bigger-ion-avatar">
         <img *ngIf="user.img != ''" src="{{ imagesURL }}{{ user.img }}">
@@ -64,9 +84,10 @@
       </ion-text>
     </ion-item>
   </ion-card>
-
-
-
+  
 
 
 </ion-content>
+
+
+
