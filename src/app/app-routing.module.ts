@@ -34,6 +34,22 @@ const routes: Routes = [
     path: 'post',
     loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
   },
+  {
+    path: 'following',
+    loadChildren: () => import('./following/following.module').then( m => m.FollowingPageModule)
+  },
+  {
+    path: 'followers',
+    loadChildren: () => import('./followers/followers.module').then( m => m.FollowersPageModule)
+  },
+  {
+    path: 'editprofile',
+    loadChildren: () => import('./editprofile/editprofile.module').then( m => m.EditprofilePageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -1,0 +1,72 @@
+
+<ion-content *ngIf="followUsers">
+
+  <h1 style=" margin: 10px; margin-top: 80px;">{{ mainname }} is Following...</h1>
+
+  <ion-card *ngFor="let user of followUsers" style="margin-top: 20px">
+    <ion-item lines="none" style="margin-top: 5px;">
+      <ion-avatar (click)="redirectUser(user.id)" slot="start" class="bigger-ion-avatar">
+        <img *ngIf="user.img != ''" src="{{ imagesURL }}{{ user.img }}">
+        <img *ngIf="user.img == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
+      </ion-avatar>
+
+      <ion-grid lines="none">
+        <ion-row>
+          <ion-col>
+            <ion-label style="font-size: 28px;">{{ user['username'] }}</ion-label>
+            <ion-label style="font-size: 15px; margin-top: -4px; color: darkgray;">{{ user['first_name'] }} {{ user['last_name'] }}</ion-label>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="redirectFollowing(user.id)" style="width: 100%;">{{ user['following'] }} Following</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="redirectFollowers(user.id)" style="width: 100%;">{{ user['your_followers'] }} Followers</ion-button>
+          </ion-col>
+
+          <ion-col>
+
+
+            <ion-button *ngIf="user.followQuestion == 0" (click)="follow(user.id, user)" style="width: 100%;">
+              <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+              Follow
+            </ion-button>
+
+            <ion-button *ngIf="user.followQuestion == 1" (click)="unfollow(user.id, user)" style="width: 100%;">
+              <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+              </svg>
+              Follow
+            </ion-button>
+
+            <ion-button *ngIf="user.followQuestion == 2" style="width: 100%;">
+              <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+              </svg>
+              Edit profile
+            </ion-button>
+
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-item>
+
+
+    <ion-item style="padding: 15px; paddiing-top: 0px; margin-top: -10px" lines="none">
+      <ion-text lines="none" style="border: 0px !important" class="text">
+        {{ user['desc'] }}
+      </ion-text>
+    </ion-item>
+</ion-card>
+
+
+
+
+
+</ion-content>

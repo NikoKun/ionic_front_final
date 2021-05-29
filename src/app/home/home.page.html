@@ -30,8 +30,9 @@
     </form>
 
     
-  <ion-card (click)="redirectPost(item.idpost)" button="true" *ngFor="let item of arrayTest" style="margin-top: 20px">
+  <ion-card *ngFor="let item of arrayTest" style="margin-top: 20px">
     <ion-item color="transparent" lines="none" class="navItemBot">
+
       <ion-avatar slot="start" (click)="redirectUser(item.iduser)"  button="true">
         <img *ngIf="item.image != ''" src="{{ imagesURL }}{{ item.image }}">
         <img *ngIf="item.image == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
@@ -39,11 +40,19 @@
 
       <ion-grid lines="none">
         <ion-row>
+
           <ion-col (click)="redirectUser(item.iduser)" button="true">
             <ion-label style="font-size: 23px;">{{ item.name }}</ion-label>
             <ion-label style="font-size: 15px; margin-top: 0px; color: darkgray;">{{ item.lastnames }}</ion-label>
           </ion-col>
+
           <ion-col style="display: flex; justify-content: flex-end">
+
+            <ion-button *ngIf="iduser == item.iduser" (click)="removepost(item.idpost)" id="remove{{item.idpost}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg>
+            </ion-button>
 
             <ion-button *ngIf="!item.like" (click)="like(item.idpost, item)" id="emptyHeart">
               {{ item.likes }} 
@@ -58,13 +67,14 @@
               </svg>
             </ion-button>
 
-            <ion-button>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+            <ion-button (click)="redirectPost(item.idpost)">
+              {{ item.replies }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                 <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
               </svg>
             </ion-button>
-          </ion-col>
 
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>

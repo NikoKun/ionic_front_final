@@ -183,7 +183,7 @@ export class ExplorePage implements OnInit {
     headers.append('Content-Type', 'application/json' );
     const requestOptions =  { headers: {'Content-Type':'application/json'} };
     this.http.post(this.requestsURL+'removepost/', this.dataToSend, requestOptions).subscribe(data => {
-    
+      this.getExplorePosts();
     }, error => {
       console.log(error);
     });

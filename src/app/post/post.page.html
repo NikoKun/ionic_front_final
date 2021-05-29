@@ -3,40 +3,53 @@
 
   <h1 style=" margin: 10px; margin-top: 80px;">Post</h1>
 
-  <ion-card *ngIf="initialPost" style="margin-top: 20px">
+  <ion-card *ngIf="item" style="margin-top: 20px">
+    <ion-item *ngIf="item.inreplies" (click)="redirectPost(item.inreplies)" button="true"  lines="none" class="navItemBot">
+      <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply-fill" viewBox="0 0 16 16">
+        <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
+      </svg>
+      In response to...
+    </ion-item>
+
     <ion-item color="transparent" lines="none" class="navItemBot">
 
-      <ion-avatar slot="start" (click)="redirectUser(initialPost.iduser)"  button="true">
-        <img *ngIf="initialPost.image != ''" src="{{ imagesURL }}{{ initialPost.image }}">
-        <img *ngIf="initialPost.image == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
+      <ion-avatar slot="start" (click)="redirectUser(item.iduser)"  button="true">
+        <img *ngIf="item.image != ''" src="{{ imagesURL }}{{ item.image }}">
+        <img *ngIf="item.image == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
       </ion-avatar>
 
       <ion-grid lines="none">
         <ion-row>
 
-          <ion-col (click)="redirectUser(initialPost.iduser)" button="true">
-            <ion-label style="font-size: 23px;">{{ initialPost.name }}</ion-label>
-            <ion-label style="font-size: 15px; margin-top: 0px; color: darkgray;">{{ initialPost.lastnames }}</ion-label>
+          <ion-col (click)="redirectUser(item.iduser)" button="true">
+            <ion-label style="font-size: 23px;">{{ item.name }}</ion-label>
+            <ion-label style="font-size: 15px; margin-top: 0px; color: darkgray;">{{ item.lastnames }}</ion-label>
           </ion-col>
 
           <ion-col style="display: flex; justify-content: flex-end">
 
-            <ion-button *ngIf="!initialPost.like" (click)="like(initialPost.idpost, initialPost)" id="emptyHeart">
-              {{ initialPost.likes }} 
+            <ion-button *ngIf="iduser == item.iduser" (click)="removepost(item.idpost)" id="remove{{item.idpost}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg>
+            </ion-button>
+
+            <ion-button *ngIf="!item.like" (click)="like(item.idpost, item)" id="emptyHeart">
+              {{ item.likes }} 
               <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
               </svg>
             </ion-button>
-            <ion-button *ngIf="initialPost.like" (click)="unlike(initialPost.idpost, initialPost)" id="fullHeart">
-              {{ initialPost.likes }} 
+            <ion-button *ngIf="item.like" (click)="unlike(item.idpost, item)" id="fullHeart">
+              {{ item.likes }} 
               <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
               </svg>
             </ion-button>
 
-
-            <ion-button (click)="redirectPost(initialPost.idpost)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+            <ion-button (click)="redirectPost(item.idpost)">
+              {{ item.replies }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                 <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
               </svg>
             </ion-button>
@@ -48,16 +61,15 @@
 
     <div style="margin: 15px">
       <ion-text lines="none" class="text">
-        {{ initialPost.text }}
+        {{ item.text }}
       </ion-text>
     </div>
 
-    <ion-item *ngIf='initialPost.postImage != ""' lines="none" class="navItem">
+    <ion-item *ngIf='item.postImage != ""' lines="none" class="navItem">
       <div style="width: 100%; display: flex; justify-content: center">
-        <ion-img (click)="presentModal()" style="width: 100%; margin: auto;margin: 15px; max-width: 800px; " src="{{imagesURL}}{{initialPost.postImage}}"></ion-img>
+        <ion-img (click)="presentModal()" style="width: 100%; margin: auto;margin: 15px; max-width: 800px; " src="{{imagesURL}}{{item.postImage}}"></ion-img>
       </div>
     </ion-item>
-
   </ion-card>
 
   <h3 style=" margin: 10px; margin-top: 20px;">Responses...</h3>
@@ -90,7 +102,76 @@
 
 
 
+  <ion-card *ngFor="let itemResp of arrayTest" style="margin-top: 20px">
 
+    <ion-item *ngIf="itemResp.inreplies" (click)="redirectPost(itemResp.inreplies)" button="true"  lines="none" class="navItemBot">
+      <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply-fill" viewBox="0 0 16 16">
+        <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
+      </svg>
+      In response to...
+    </ion-item>
+
+    <ion-item color="transparent" lines="none" class="navItemBot">
+
+      <ion-avatar slot="start" (click)="redirectUser(itemResp.iduser)"  button="true">
+        <img *ngIf="itemResp.image != ''" src="{{ imagesURL }}{{ itemResp.image }}">
+        <img *ngIf="itemResp.image == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
+      </ion-avatar>
+
+      <ion-grid lines="none">
+        <ion-row>
+
+          <ion-col (click)="redirectUser(itemResp.iduser)" button="true">
+            <ion-label style="font-size: 23px;">{{ itemResp.name }}</ion-label>
+            <ion-label style="font-size: 15px; margin-top: 0px; color: darkgray;">{{ itemResp.lastnames }}</ion-label>
+          </ion-col>
+
+          <ion-col style="display: flex; justify-content: flex-end">
+
+            <ion-button *ngIf="iduser == itemResp.iduser" (click)="removepost(itemResp.idpost)" id="remove{{itemResp.idpost}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg>
+            </ion-button>
+
+            <ion-button *ngIf="!itemResp.like" (click)="like2(itemResp.idpost, itemResp)" id="emptyHeart">
+              {{ itemResp.likes }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+              </svg>
+            </ion-button>
+            <ion-button *ngIf="itemResp.like" (click)="unlike2(itemResp.idpost, itemResp)" id="fullHeart">
+              {{ itemResp.likes }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+              </svg>
+            </ion-button>
+
+            <ion-button (click)="redirectPost(itemResp.idpost)">
+              {{ itemResp.replies }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </ion-button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <div style="margin: 15px">
+      <ion-text lines="none" class="text">
+        {{ itemResp.text }}
+      </ion-text>
+    </div>
+
+    <ion-item *ngIf='itemResp.postImage != ""' lines="none" class="navItem">
+      <div style="width: 100%; display: flex; justify-content: center">
+        <ion-img (click)="presentModal()" style="width: 100%; margin: auto;margin: 15px; max-width: 800px; " src="{{imagesURL}}{{itemResp.postImage}}"></ion-img>
+      </div>
+    </ion-item>
+
+  </ion-card>
 
 
   

@@ -114,7 +114,10 @@ input-wrapper {
 .backGray ion-item {
   --ion-background-color: var(--ion-color-light) !important;
 }
-
+.backGray2 {
+  background: var(--ion-color-light);
+  --ion-background-color: var(--ion-color-light) !important;
+}
 
 .menuButton {
   --background: transparent;
