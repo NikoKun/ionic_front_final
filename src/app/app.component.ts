@@ -3,7 +3,6 @@ import { MenuController } from '@ionic/angular';
 
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Router, NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -19,7 +18,7 @@ export class AppComponent {
 
   public userData: any;
 
-  constructor(private menu: MenuController, private http: HttpClient, private router: Router ) {
+  constructor(private menu: MenuController, private http: HttpClient ) {
 
   }
 
@@ -38,6 +37,11 @@ export class AppComponent {
   
       this.http.post(this.requestsURL+'getuser/', ''+localStorage.getItem('userToken'), requestOptions).subscribe(data => {
         if (data != 'no') {
+          if (data['img'] == '') {
+            data['img'] = 'https://censur.es/wp-content/uploads/2019/03/default-avatar.png';
+          } else {
+            data['img'] = this.imagesURL + data['img'];
+          }
           this.userData = data;
         } else {
   
@@ -46,15 +50,15 @@ export class AppComponent {
         console.log(error);
       });
     }
-
-
-
-
-    
   }
 
 
 
+
+  rediractProfile() {
+    localStorage.setItem('idVisiting', localStorage.getItem('userid'));
+    window.location.href = "/profile";
+  }
 
   
   openFirst() {
@@ -75,7 +79,8 @@ export class AppComponent {
 
   loggout() {
     localStorage.setItem('userToken', 'no');
-    this.router.navigate(['/login']);
+    localStorage.setItem('userid', 'no');
+    window.location.href = "/login";
   }
 
 

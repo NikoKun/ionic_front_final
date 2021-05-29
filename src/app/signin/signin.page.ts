@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-signin',
@@ -26,7 +25,7 @@ export class SigninPage implements OnInit {
   public msgText: string = "";
 
 
-  constructor( public http: HttpClient, public formBuilder: FormBuilder, private router: Router ) { 
+  constructor( public http: HttpClient, public formBuilder: FormBuilder ) { 
 
 
   }
@@ -63,7 +62,7 @@ export class SigninPage implements OnInit {
     this.http.post(this.requestsURL+'register/', this.todo.value, requestOptions).subscribe(data => {
       if (data == 1) {
         localStorage.setItem('image', '')
-        this.router.navigate(['/login'])
+        window.location.href = "/login";
       } else {
         this.errorMSG = ''+data;
         this.showError = true;

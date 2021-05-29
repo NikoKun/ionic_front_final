@@ -1,37 +1,55 @@
 
-<ion-content>
+<ion-content *ngIf="visitrdUserData">
 
 
 
   <ion-item lines="none" style="margin-top: 65px;">
     <ion-avatar slot="start" class="bigger-ion-avatar">
-      <img src="{{ imagesURL }}img1.jpg">
+      <img *ngIf="visitrdUserData.img != ''" src="{{ visitrdUserData['img'] }}">
+      <img *ngIf="visitrdUserData.img == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
     </ion-avatar>
 
     <ion-grid lines="none">
       <ion-row>
         <ion-col>
-          <ion-label style="font-size: 28px;">NikoKun</ion-label>
-          <ion-label style="font-size: 15px; margin-top: -4px; color: darkgray;">@nikorasu</ion-label>
+          <ion-label style="font-size: 28px;">{{ visitrdUserData['username'] }}</ion-label>
+          <ion-label style="font-size: 15px; margin-top: -4px; color: darkgray;">{{ visitrdUserData['first_name'] }} {{ visitrdUserData['last_name'] }}</ion-label>
         </ion-col>
       </ion-row>
 
 
       <ion-row>
         <ion-col>
-          <ion-button style="width: 100%;">23 Following</ion-button>
+          <ion-button style="width: 100%;">{{ visitrdUserData['following'] }} Following</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button style="width: 100%;">16 Followers</ion-button>
+          <ion-button style="width: 100%;">{{ visitrdUserData['your_followers'] }} Followers</ion-button>
         </ion-col>
 
         <ion-col>
-          <ion-button style="width: 100%;">
-            <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
-              <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+
+
+          <ion-button *ngIf="visitrdUserData.followQuestion == 0" style="width: 100%;">
+            <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
             </svg>
             Follow
           </ion-button>
+
+          <ion-button *ngIf="visitrdUserData.followQuestion == 1" style="width: 100%;">
+            <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+              <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+            </svg>
+            Follow
+          </ion-button>
+
+          <ion-button *ngIf="visitrdUserData.followQuestion == 2" style="width: 100%;">
+            <svg style="margin-right: 10px" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+              <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+            </svg>
+            Edit profile
+          </ion-button>
+
         </ion-col>
       </ion-row>
 
@@ -41,7 +59,7 @@
 
   <ion-item style="padding: 15px; paddiing-top: 0px; margin-top: -10px" lines="none">
     <ion-text lines="none" style="border: 0px !important" class="text">
-      efgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwefefgwfwgwef
+      {{ visitrdUserData['desc'] }}
     </ion-text>
   </ion-item>
 
@@ -53,7 +71,60 @@
     </ion-item>
   </div>
 
-  
+
+  <ion-card (click)="redirectPost(item.idpost)" button="true" *ngFor="let item of arrayTest" style="margin-top: 20px">
+    <ion-item color="transparent" lines="none" class="navItemBot">
+      <ion-avatar slot="start" (click)="redirectUser(item.iduser)"  button="true">
+        <img *ngIf="item.image != ''" src="{{ imagesURL }}{{ item.image }}">
+        <img *ngIf="item.image == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
+      </ion-avatar>
+
+      <ion-grid lines="none">
+        <ion-row>
+          <ion-col (click)="redirectUser(item.iduser)" button="true">
+            <ion-label style="font-size: 23px;">{{ item.name }}</ion-label>
+            <ion-label style="font-size: 15px; margin-top: 0px; color: darkgray;">{{ item.lastnames }}</ion-label>
+          </ion-col>
+          <ion-col style="display: flex; justify-content: flex-end">
+
+            <ion-button *ngIf="!item.like" (click)="like(item.idpost, item)" id="emptyHeart">
+              {{ item.likes }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+              </svg>
+            </ion-button>
+            <ion-button *ngIf="item.like" (click)="unlike(item.idpost, item)" id="fullHeart">
+              {{ item.likes }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+              </svg>
+            </ion-button>
+
+            <ion-button>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </ion-button>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <div style="margin: 15px">
+      <ion-text lines="none" class="text">
+        {{ item.text }}
+      </ion-text>
+    </div>
+
+    <ion-item *ngIf='item.postImage != ""' lines="none" class="navItem">
+      <div style="width: 100%; display: flex; justify-content: center">
+        <ion-img (click)="presentModal()" style="width: 100%; margin: auto;margin: 15px; max-width: 800px; " src="{{imagesURL}}{{item.postImage}}"></ion-img>
+      </div>
+    </ion-item>
+
+  </ion-card>
+
 
 
 

@@ -4,8 +4,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import {Router} from "@angular/router"
-
+import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -22,23 +21,31 @@ export class LoginPage implements OnInit {
   public showError: boolean = false;
   public errorMSG: string;
 
-  constructor(public http: HttpClient, public formBuilder: FormBuilder, private router: Router) { 
+  constructor( private menuController: MenuController, public http: HttpClient, public formBuilder: FormBuilder ) { 
 
 
   }
 
   ngOnInit() {
-    
-
-    document.getElementsByName('menu').forEach(element => {
-      element.hidden = true;
-    }); 
-
     this.todo = this.formBuilder.group({
       username_email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
+
+
+  ionViewDidEnter() {
+    this.menuController.enable(false, 'first');
+    this.menuController.enable(false, 'last');
+    console.log('1');
+  }
+
+  ionViewDidLeave() {
+    this.menuController.enable(true, 'first');
+    this.menuController.enable(true, 'last');
+    console.log('2');
+  }
+
 
 
 
@@ -55,9 +62,9 @@ export class LoginPage implements OnInit {
 
     this.http.post(this.requestsURL+'logmein/', this.todo.value, requestOptions).subscribe(data => {
       if (data[0]['response'] == 1) {
-        console.log('1 '+data[0]['response']);
         localStorage.setItem('userToken', data[0]['token']);
-        this.router.navigate(['/home']);
+        localStorage.setItem('userid', data[0]['id']);
+        window.location.href = "/home";
       } else {
         this.errorMSG = ''+data;
         this.showError = true;

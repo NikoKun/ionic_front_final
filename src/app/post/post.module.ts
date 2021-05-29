@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { PostPageRoutingModule } from './post-routing.module';
 
-import { HomePage } from './home.page';
+import { PostPage } from './post.page';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -14,10 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    PostPageRoutingModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
-  declarations: [HomePage]
+  declarations: [PostPage]
 })
-export class HomePageModule {}
+export class PostPageModule {}

@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { ExplorePageRoutingModule } from './explore-routing.module';
 
-import { HomePage } from './home.page';
+import { ExplorePage } from './explore.page';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -14,10 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    ExplorePageRoutingModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
-  declarations: [HomePage]
+  declarations: [ExplorePage]
 })
-export class HomePageModule {}
+export class ExplorePageModule {}

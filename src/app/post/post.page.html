@@ -1,0 +1,102 @@
+<ion-content *ngIf="isLogged == true">
+
+
+  <h1 style=" margin: 10px; margin-top: 80px;">Post</h1>
+
+  <ion-card *ngIf="initialPost" style="margin-top: 20px">
+    <ion-item color="transparent" lines="none" class="navItemBot">
+
+      <ion-avatar slot="start" (click)="redirectUser(initialPost.iduser)"  button="true">
+        <img *ngIf="initialPost.image != ''" src="{{ imagesURL }}{{ initialPost.image }}">
+        <img *ngIf="initialPost.image == ''" src="https://censur.es/wp-content/uploads/2019/03/default-avatar.png">
+      </ion-avatar>
+
+      <ion-grid lines="none">
+        <ion-row>
+
+          <ion-col (click)="redirectUser(initialPost.iduser)" button="true">
+            <ion-label style="font-size: 23px;">{{ initialPost.name }}</ion-label>
+            <ion-label style="font-size: 15px; margin-top: 0px; color: darkgray;">{{ initialPost.lastnames }}</ion-label>
+          </ion-col>
+
+          <ion-col style="display: flex; justify-content: flex-end">
+
+            <ion-button *ngIf="!initialPost.like" (click)="like(initialPost.idpost, initialPost)" id="emptyHeart">
+              {{ initialPost.likes }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+              </svg>
+            </ion-button>
+            <ion-button *ngIf="initialPost.like" (click)="unlike(initialPost.idpost, initialPost)" id="fullHeart">
+              {{ initialPost.likes }} 
+              <svg style="margin-left: 10px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+              </svg>
+            </ion-button>
+
+
+            <ion-button (click)="redirectPost(initialPost.idpost)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </ion-button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <div style="margin: 15px">
+      <ion-text lines="none" class="text">
+        {{ initialPost.text }}
+      </ion-text>
+    </div>
+
+    <ion-item *ngIf='initialPost.postImage != ""' lines="none" class="navItem">
+      <div style="width: 100%; display: flex; justify-content: center">
+        <ion-img (click)="presentModal()" style="width: 100%; margin: auto;margin: 15px; max-width: 800px; " src="{{imagesURL}}{{initialPost.postImage}}"></ion-img>
+      </div>
+    </ion-item>
+
+  </ion-card>
+
+  <h3 style=" margin: 10px; margin-top: 20px;">Responses...</h3>
+
+
+
+
+
+  <form [formGroup]="todo" (ngSubmit)="post()">
+    <div class="backGray" style="padding: 10px;">
+      <ion-item class="allBorders">
+
+        <ion-textarea id="textarea" formControlName="body" maxlength="400" spellcheck="true" [(ngModel)]="msgText" placeholder="¿Want to make a response?"></ion-textarea>
+        <div lines="none" style="display: flex; width: 100%; margin-bottom: 3px">
+          <ion-label style="width: 170px; margin-top: -15px" position="stacked">{{ 400 - msgText.length }} characters left</ion-label>
+
+          <div style="display: flex; justify-content: flex-end; width: 100%">
+            <ion-button>
+              <input (change)="loadProfPic($event)" style="width: 100%" type="file" id="file-input" accept="image/png, image/jpeg">
+              <ion-icon for="file-input" lazy="true" slot="start" name="image"></ion-icon>
+            </ion-button>
+            <ion-button [disabled]="!todo.valid" type="submit" style="margin-bottom: 10px;">Share</ion-button>
+          </div>
+        </div>
+
+      </ion-item>
+    </div>
+  </form>
+
+
+
+
+
+
+
+  
+
+
+</ion-content>
+
+
+
